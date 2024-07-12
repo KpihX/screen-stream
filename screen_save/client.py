@@ -4,12 +4,14 @@ import io
 from PIL import Image
 import time
 
+NB_MAX_IMG = 20
+
 def receive_screenshot(client_socket, save_dir):
     if not os.path.exists(save_dir):
         os.makedirs(save_dir)
     
     image_count = 0
-    while image_count < 50:  
+    while image_count < NB_MAX_IMG:  
         try:
             size = int.from_bytes(client_socket.recv(4), 'big')
             
