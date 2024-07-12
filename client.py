@@ -13,7 +13,7 @@ def receive_screenshot(client_socket):
     screen = None
     clock = pygame.time.Clock()
     
-    image_count = 0
+    # image_count = 0
     # while image_count < NB_MAX_IMG:  
     while True:
         try:
@@ -41,7 +41,7 @@ def receive_screenshot(client_socket):
             pygame.display.flip()
             print("Image affichée")
             
-            image_count += 1
+            # image_count += 1
 
             # Envoyer un signal au serveur pour indiquer que l'image a été reçue et traitée
             client_socket.sendall(b'1')
