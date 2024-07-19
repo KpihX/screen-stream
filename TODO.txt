@@ -1,0 +1,4 @@
+* Capture de la souris avec pyautogui
+
+* gestion des erreurs d'envoie avec sendall
+
