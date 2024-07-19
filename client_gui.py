@@ -1,14 +1,11 @@
-import os
 import socket
 import io
 from PIL import Image, ImageTk
-import time
 import pygame
 import tkinter as tk
 from tkinter import ttk
 
-NB_MAX_IMG = 20
-FPS = 30  # Limite de rafraîchissement à 30 images par seconde
+FPS = 60  # Limite de rafraîchissement à 60 images par seconde
 
 class ScreenShareApp:
     def __init__(self, root):
@@ -33,7 +30,7 @@ class ScreenShareApp:
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.client_socket.connect(('127.0.0.1', 5001))
         
-        self.screen = None
+        # self.screen = None
         self.clock = pygame.time.Clock()
         
         self.root.protocol("WM_DELETE_WINDOW", self.on_closing)

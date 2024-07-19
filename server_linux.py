@@ -1,12 +1,21 @@
 import socket
 import threading
-from PIL import ImageGrab
+import subprocess
 import io
+from PIL import Image
 
 def send_screenshot(client_socket):
     try:
         while True:
-            img = ImageGrab.grab().convert('RGB')
+            # Utiliser ffmpeg avec une taille de buffer de probabilité augmentée
+            ffmpeg_command = [
+                'ffmpeg', '-f', 'x11grab', '-probesize', '50M', '-video_size', '1366x768', '-i', ':0.0', 
+                '-vframes', '1', '-f', 'image2pipe', '-vcodec', 'png', '-'
+            ]
+            ffmpeg_process = subprocess.Popen(ffmpeg_command, stdout=subprocess.PIPE)
+            img_bytes, _ = ffmpeg_process.communicate()
+            
+            img = Image.open(io.BytesIO(img_bytes)).convert('RGB')
             byte_arr = io.BytesIO()
             img.save(byte_arr, format='JPEG')
             img_bytes = byte_arr.getvalue()
@@ -29,18 +38,16 @@ def send_screenshot(client_socket):
                 print("Signal incorrect reçu, arrêt de l'envoi!")
                 break
             
-    except (BrokenPipeError, ConnectionResetError):
+    except BrokenPipeError:
         print("Client déconnecté.")
         client_socket.close()
     except Exception as e:
-        raise
-
-
-
+        print(f"Erreur : {e}")
+        client_socket.close()
 
 def main():
     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server_socket.bind(('127.0.0.1', 5001))
+    server_socket.bind(('0.0.0.0', 5001))
     server_socket.listen(5)
     print("Serveur démarré.")
     
