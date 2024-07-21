@@ -1,8 +1,6 @@
-import os
 import socket
 import io
 from PIL import Image
-import time
 import pygame
 
 NB_MAX_IMG = 20
