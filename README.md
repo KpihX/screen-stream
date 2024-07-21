@@ -1,4 +1,4 @@
-# Screen Stream Project 🖥️🌐
+# Screen Stream 🖥️🌐
 
 Screen Stream est un projet qui permet de partager et visualiser en temps réel le bureau d'un ordinateur à distance. Ce projet est divisé en deux composants principaux, le serveur et le client, avec une interface graphique pour le client (client_gui). La communication s'effectue sur un réseau local (par défaut), mais peut être configurée pour fonctionner à travers différents réseaux en ajustant les adresses IP dans les fichiers de configuration du serveur et du client.
 
